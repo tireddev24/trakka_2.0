@@ -1,6 +1,7 @@
+import React from "react";
 import {Text, View} from "react-native";
 
-export default function Index() {
+const Profile = () => {
 	return (
 		<View
 			className="bg-primary-200 "
@@ -9,9 +10,9 @@ export default function Index() {
 				justifyContent: "center",
 				alignItems: "center",
 			}}>
-			<Text className="text-3xl text-text-100">
-				Welcome to Trakka 2.0!
-			</Text>
+			<Text className="text-3xl text-text-100">Profile page</Text>
 		</View>
 	);
-}
+};
+
+export default Profile;
