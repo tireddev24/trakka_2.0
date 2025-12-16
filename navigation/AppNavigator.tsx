@@ -1,7 +1,12 @@
 import icons from "@/constants/icons";
-import {Tabs} from "expo-router";
+import Create from "@/screens/Create";
+import Home from "@/screens/Home";
+import Insights from "@/screens/Insights";
+import Profile from "@/screens/Profile";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import React from "react";
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Image, Text, View} from "react-native";
 
 const TabIcon = ({
 	focused,
@@ -26,9 +31,11 @@ const TabIcon = ({
 	</View>
 );
 
+const Tab = createBottomTabNavigator();
+
 const TabsLayout = () => {
 	return (
-		<Tabs
+		<Tab.Navigator
 			screenOptions={{
 				tabBarShowLabel: false,
 				tabBarStyle: {
@@ -40,51 +47,36 @@ const TabsLayout = () => {
 					position: "absolute",
 				},
 			}}>
-			<Tabs.Screen
-				name="index"
+			<Tab.Screen name="Home" component={Home} />
+			<Tab.Screen name="Create" component={Create} />
+			<Tab.Screen
+				name="insights"
+				component={Insights}
 				options={{
-					title: "Home",
+					title: "Insights",
 					headerShown: false,
 					tabBarIcon: ({focused}) => (
 						<TabIcon
-							icon={icons.home}
+							icon={icons.info}
 							focused={focused}
-							title="Home"
+							title="Insights"
 						/>
 					),
 				}}
 			/>
-			<Tabs.Screen
-				name="expenses"
-				options={{
-					title: "Expenses",
-					headerShown: false,
-					tabBarIcon: ({focused}) => (
-						<TabIcon
-							icon={icons.chat}
-							focused={focused}
-							title="Expenses"
-						/>
-					),
-				}}
-			/>
-			<Tabs.Screen
-				name="profile"
-				options={{
-					title: "Profile",
-					headerShown: false,
-					tabBarIcon: ({focused}) => (
-						<TabIcon
-							icon={icons.person}
-							focused={focused}
-							title="Profile"
-						/>
-					),
-				}}
-			/>
-		</Tabs>
+		</Tab.Navigator>
 	);
 };
 
-export default TabsLayout;
-const styles = StyleSheet.create({});
+const Stack = createNativeStackNavigator();
+
+const AppNavigator = () => {
+	return (
+		<Stack.Navigator>
+			<Stack.Screen name="BottomTabs" component={TabsLayout} />
+			<Stack.Screen name="Profile" component={Profile} />
+		</Stack.Navigator>
+	);
+};
+
+export default AppNavigator;

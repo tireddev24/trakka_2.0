@@ -9,6 +9,7 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 interface settingsItemProps {
 	icon: ImageSourcePropType;
@@ -39,7 +40,7 @@ const SettingsItem = ({
 
 const Profile = () => {
 	return (
-		<View className="bg-primary-200 h-full">
+		<SafeAreaView className="bg-primary-200 h-full">
 			<View className="px-5 mt-10">
 				<View className="bg-primary-300  rounded-lg mt-5 flex flex-col items-center p-5 justify-center">
 					<Image
@@ -59,7 +60,7 @@ const Profile = () => {
 					))}
 				</View>
 			</View>
-		</View>
+		</SafeAreaView>
 	);
 };
 

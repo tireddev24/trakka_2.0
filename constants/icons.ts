@@ -24,6 +24,7 @@ import logout from "@/assets/icons/logout.png";
 import people from "@/assets/icons/people.png";
 import person from "@/assets/icons/person.png";
 import phone from "@/assets/icons/phone.png";
+import pieChart from "@/assets/icons/pie_chart.png";
 import rightArrow from "@/assets/icons/right-arrow.png";
 import run from "@/assets/icons/run.png";
 import search from "@/assets/icons/search.png";
@@ -33,7 +34,6 @@ import star from "@/assets/icons/star.png";
 import swim from "@/assets/icons/swim.png";
 import wallet from "@/assets/icons/wallet.png";
 import wifi from "@/assets/icons/wifi.png";
-
 export default {
 	google,
 	home,
@@ -47,6 +47,7 @@ export default {
 	calendar,
 	info,
 	language,
+	pieChart,
 	logout,
 	people,
 	shield,
