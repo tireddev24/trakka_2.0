@@ -40,15 +40,25 @@ const Insights = () => {
 			text-3xl font-rubik-medium  text-center text-primary-100 my-10">
 				Spending Summary
 			</Text>
-			<View className="my-3">
-				<Chart />
-			</View>
 			<View>
-				<FlatList
-					data={pieChartData}
-					ListEmptyComponent={<Empty />}
-					renderItem={renderListItem}
-				/>
+				{expenses && (
+					<FlatList
+						data={pieChartData}
+						ListEmptyComponent={
+							<Empty
+								icon="🥲"
+								title={"Oops, No record to show"}
+								message={""}
+							/>
+						}
+						ListHeaderComponent={
+							<View className="my-3">
+								{expenses.length > 0 && <Chart />}
+							</View>
+						}
+						renderItem={renderListItem}
+					/>
+				)}
 			</View>
 		</SafeAreaView>
 	);

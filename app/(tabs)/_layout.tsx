@@ -105,7 +105,7 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
 	return (
 		<ExpenseProvider>
-			<Stack.Navigator initialRouteName="signin">
+			<Stack.Navigator initialRouteName="login">
 				<Stack.Screen
 					name="signin"
 					component={Signin}
