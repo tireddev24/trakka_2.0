@@ -1,6 +1,5 @@
-import {settings} from "@/constants/data";
 import icons from "@/constants/icons";
-import images from "@/constants/images";
+import {useExpenses} from "@/context/expenseContext";
 import React from "react";
 import {
 	Image,
@@ -26,8 +25,10 @@ const SettingsItem = ({
 	textStyle,
 	showArrow = true,
 }: settingsItemProps) => (
-	<TouchableOpacity className="flex flex-row items-center justify-between py-3">
-		<View className="flex flex-row items-center gap-3">
+	<TouchableOpacity
+		className="flex flex-row items-center justify-between py-3"
+		onPress={onPress}>
+		<View className="flex flex-row items-center justify-center gap-3">
 			<Image source={icon} className="rounded-full p-5 size-14 " />
 			<Text
 				className={`${textStyle} text-xl text-white font-rubik-medium `}>
@@ -38,26 +39,36 @@ const SettingsItem = ({
 	</TouchableOpacity>
 );
 
-const Profile = () => {
+const Profile = ({navigation}: any) => {
+	const {user, removeUser} = useExpenses();
+
+	const handleLogout = () => {
+		navigation.navigate("login");
+	};
+
 	return (
 		<SafeAreaView className="bg-primary-200 h-full">
 			<View className="px-5 mt-10">
 				<View className="bg-primary-300  rounded-lg mt-5 flex flex-col items-center p-5 justify-center">
-					<Image
-						source={images.profile}
-						className="size-20 rounded-full"
-					/>
 					<Text className="text-white text-2xl mt-3 font-rubik-medium">
-						Michael Amao
+						{user.username}
 					</Text>
 					<Text className="text-white tex-lg mt-1 font-rubik">
-						ID : 25030024
+						ID: {user.email}
 					</Text>
 				</View>
-				<View className="flex flex-col items-start mt-5 gap-3">
+				{/* <View className="flex flex-col items-start mt-5 gap-3">
 					{settings.map((item, index) => (
 						<SettingsItem key={index} {...item} />
 					))}
+				</View> */}
+				<View className="mt-10">
+					<SettingsItem
+						icon={icons.logout}
+						title="Logout"
+						textStyle="text-danger "
+						onPress={handleLogout}
+					/>
 				</View>
 			</View>
 		</SafeAreaView>

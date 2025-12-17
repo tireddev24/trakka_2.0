@@ -3,6 +3,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createContext, useContext, useEffect, useState} from "react";
 
 interface ExpenseContextType {
+	saveUser: (user: userType) => void;
+	removeUser: () => void;
+	getUser: () => {} | null;
+	user: any;
 	expenses: {
 		id: string;
 		title: string;
@@ -17,6 +21,18 @@ interface ExpenseContextType {
 	// Add other functions/state you need here
 }
 
+interface userType {
+	username: string;
+	email: string;
+	password: string;
+}
+
+interface dummyUser {
+	username: "Michael442";
+	email: "mich442@gmail.com";
+	password: "123456";
+}
+
 const initialContextValue: ExpenseContextType = {
 	expenses: [],
 	addExpense: () => {
@@ -24,6 +40,10 @@ const initialContextValue: ExpenseContextType = {
 		console.warn("addExpense called outside of ExpenseProvider");
 	},
 	isLoading: true,
+	removeUser: () => {},
+	saveUser: () => {},
+	getUser: () => null,
+	user: {},
 };
 
 export const ExpenseContext =
@@ -33,7 +53,42 @@ export function ExpenseProvider({children}: {children: React.ReactNode}) {
 	const [expenses, setExpenses] = useState<ExpenseContextType["expenses"]>(
 		[],
 	);
+	const [user, setUser] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
+
+	const saveUser = async (user: userType) => {
+		try {
+			await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+		} catch (error) {
+			console.log("Save error:", error);
+		}
+	};
+
+	const getUser = async () => {
+		try {
+			const user = await AsyncStorage.getItem(USER_KEY);
+
+			if (!user) {
+				setUser(null);
+			}
+			const userInfo = JSON.parse(user!);
+			setUser(userInfo);
+			return userInfo;
+		} catch (error) {
+			console.log("Get error:", error);
+			return null;
+		}
+	};
+
+	const removeUser = async () => {
+		try {
+			await AsyncStorage.removeItem(USER_KEY);
+			await AsyncStorage.removeItem("expenses");
+			setUser(null);
+		} catch (error) {
+			console.log("Remove error:", error);
+		}
+	};
 
 	//Get data to storage
 	useEffect(() => {
@@ -50,7 +105,10 @@ export function ExpenseProvider({children}: {children: React.ReactNode}) {
 			}
 		};
 
-		getData();
+		setTimeout(() => {
+			getUser();
+			getData();
+		}, 3000);
 	}, []);
 
 	//Save data to storage
@@ -86,10 +144,21 @@ export function ExpenseProvider({children}: {children: React.ReactNode}) {
 	};
 
 	return (
-		<ExpenseContext.Provider value={{expenses, addExpense, isLoading}}>
+		<ExpenseContext.Provider
+			value={{
+				expenses,
+				addExpense,
+				isLoading,
+				saveUser,
+				getUser,
+				removeUser,
+				user,
+			}}>
 			{children}
 		</ExpenseContext.Provider>
 	);
 }
 
 export const useExpenses = () => useContext(ExpenseContext);
+
+const USER_KEY = "USER_DATA";

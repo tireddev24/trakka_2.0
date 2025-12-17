@@ -78,6 +78,7 @@ const Create = ({navigation, route}: any) => {
 							value={amount}
 							onChangeText={setAmount}
 							placeholder="₦0.00"
+							placeholderTextColor={"gray"}
 							className="p-4 border-2 border-white font-rubik text-xl text-white rounded-xl bg-primary-300"
 						/>
 					</View>
@@ -91,7 +92,8 @@ const Create = ({navigation, route}: any) => {
 							value={title}
 							onChangeText={setTitle}
 							placeholder="What was it for?"
-							className="p-4 border-2 border-white font-rubik text-xl text-white rounded-xl bg-primary-300"
+							placeholderTextColor={"gray"}
+							className="p-4 border-2 border-white  font-rubik text-xl text-white rounded-xl bg-primary-300"
 						/>
 					</View>
 
@@ -105,7 +107,7 @@ const Create = ({navigation, route}: any) => {
 							onPress={() => handleCategoryInput()}
 							className="border border-primary-100 p-4 rounded-xl flex flex-row justify-between items-center">
 							<View className="flex flex-row items-center">
-								<Text className="text-white text-2xl">
+								<Text className="text-white text-2xl mr-2">
 									{category.icon}
 								</Text>
 								<Text className="text-white text-lg ">

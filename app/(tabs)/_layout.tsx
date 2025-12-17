@@ -6,7 +6,9 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import React from "react";
 import {Image, Text, View} from "react-native";
 import Index from ".";
+import Login from "../login";
 import Profile from "../profile/profile";
+import Signin from "../signin";
 import Create from "./create";
 import Insights from "./insights";
 
@@ -103,13 +105,34 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
 	return (
 		<ExpenseProvider>
-			<Stack.Navigator screenOptions={{headerShown: false}}>
-				<Stack.Screen name="bottomTabs" component={TabsLayout} />
-				<Stack.Screen name="profile" component={Profile} />
+			<Stack.Navigator initialRouteName="signin">
+				<Stack.Screen
+					name="signin"
+					component={Signin}
+					options={{headerShown: false}}
+				/>
+				<Stack.Screen
+					name="login"
+					component={Login}
+					options={{headerShown: false}}
+				/>
+				<Stack.Screen
+					name="bottomTabs"
+					component={TabsLayout}
+					options={{headerShown: false}}
+				/>
+				<Stack.Screen
+					name="profile"
+					component={Profile}
+					options={{
+						headerStyle: {backgroundColor: "#0A213A"},
+						headerTintColor: "white",
+					}}
+				/>
 				<Stack.Screen
 					name="category"
 					component={Category}
-					options={{presentation: "modal"}}
+					options={{presentation: "modal", headerShown: false}}
 				/>
 			</Stack.Navigator>
 		</ExpenseProvider>

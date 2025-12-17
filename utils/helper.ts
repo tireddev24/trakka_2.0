@@ -48,7 +48,5 @@ export const processDataForPieChart = (expenses: any) => {
 		};
 	});
 
-	console.log(pieChartData);
-
 	return pieChartData;
 };
